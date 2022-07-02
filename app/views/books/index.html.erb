@@ -1,0 +1,44 @@
+<html>
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>  
+
+<body>
+  <p id="notice"></p>
+  <h1>Books</h1>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>リーダブルコード</td>
+        <td>より良いコードを書くためのシンプルで実践的なテクニック</td>
+        <td><a class="Show_82342" href="/books/82342">Show</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- テーブルを作って一覧表にするらしいがいったん置いておく -->
+  
+  
+  <h2>New Book</h2>
+  
+  <%= form_with model:@books do |f|%>
+  <p>Title</p>
+  <%= f.text_field:title %>
+  
+  <p>Body</p>
+  <%=f.text_area :body %>
+  
+  <%=f.submit 'Create Book'%>
+  <% end %>
+  
+</body>
+  
+</html>
