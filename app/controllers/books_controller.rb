@@ -13,18 +13,25 @@ class BooksController < ApplicationController
     book.save
     redirect_to book_path(book.id)#route.rbのパスで確認　idは自動生成される番号
   end
-  #
-    
+  
   def show
+    @book = Book.find(params[:id])
   end
 
   def edit
+    @book = Book.find(params[:id])
   end
 
+  def update
+    book = Book.fine(params[:id])
+    book.update(book_params)
+    redirect_to book_path(book.id)
+  end
+  
 private
 
     def book_params
     params.require(:book).permit(:title, :body)#カラムに入れるデータを定義づけ
     end
-  
-end
+ 
+ end 
