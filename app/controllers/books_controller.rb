@@ -9,9 +9,14 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.new(book_params)#新規でデータを取得する　createは内部処理のため@は不要
-    book.save
-    redirect_to book_path(book.id)#route.rbのパスで確認　idは自動生成される番号
+    @book = Book.new(book_params)
+    if @book.save
+      redirect_to book_path(@book.id)
+    else
+      @books = Book.all
+      render :index
+    end
+    flash[:hoge]="Book was successfully created."
   end
   
   def show
@@ -23,22 +28,27 @@ class BooksController < ApplicationController
   end
 
   def update
-    book = Book.find(params[:id])
-    book.update(book_params)
-    redirect_to book_path(book.id)
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      redirect_to book_path(book.id)
+    else
+      @book = Book.find(params[:id])
+      render :edit
+    end
+    flash[:hoge]="Book was successfully updated."
   end
   
   def destroy
     book = Book.find(params[:id])
     book.destroy
     redirect_to '/books'
+    flash[:hoge]="Book was successfully destroyed."
   end
   
   
 private
 
     def book_params
-    params.require(:book).permit(:title, :body)#カラムに入れるデータを定義づけ
+    params.require(:book).permit(:title, :body)
     end
- 
- end 
+ end
